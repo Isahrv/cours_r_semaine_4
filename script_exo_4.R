@@ -13,3 +13,26 @@ dbListTables(conn)
 df_DEC_COM <- dbReadTable(conn = conn, name = "DEC_COM")
 
 df_DEC_COM_Meta <- read_parquet("C:/Users/isali/OneDrive/Documents/cours/M1 ECAP/S2/RShiny & Dataviz/cours_r_semaine_4/data/DEC_COM_Meta.parquet")
+head(df_DEC_COM_Meta)
+
+# Question 3
+## Moins de 30 ans
+library(dplyr)
+library(stringr)
+moins_30 <- df_DEC_COM_Meta |>
+  filter(str_detect(LIB_VAR_LONG, regex("moins de 30", ignore_case = TRUE)))
+
+nrow(moins_30)
+
+couples_enfants <- df_DEC_COM_Meta |>
+  filter(str_detect(LIB_VAR_LONG, regex("couples avec enfant", ignore_case = TRUE)))
+
+nrow(couples_enfants)
+
+indice_gini <- df_DEC_COM_Meta |>
+  filter(str_detect(LIB_VAR_LONG, regex("Indice de Gini", ignore_case = TRUE))) |>
+  select(COD_VAR)
+
+print(indice_gini)
+
+# Question 4
